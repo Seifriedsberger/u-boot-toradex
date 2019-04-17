@@ -256,7 +256,7 @@
 		"${interface} ${drive}:1 ${loadaddr} flash_blk.img && " \
 		"source ${loadaddr}\0" \
 	"setup=setenv setupargs fec_mac=${ethaddr} " \
-		"consoleblank=0 no_console_suspend=1 " \
+		"consoleblank=0 no_console_suspend=1 panic=20 " \
 		"console=${console},${baudrate}n8\0" \
 	"setupdate=run setsdupdate || run setusbupdate || run setethupdate\0" \
 	"setusbupdate=usb start && setenv interface usb; setenv drive 0; " \
