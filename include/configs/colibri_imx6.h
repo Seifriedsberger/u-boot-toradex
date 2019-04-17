@@ -262,8 +262,8 @@
 		"load ${interface} ${drive}:1 ${loadaddr} flash_blk.img && " \
 		"source ${loadaddr}\0" \
 	"splashpos=m,m\0" \
-	"vidargs=video=mxcfb0:dev=lcd,640x480M@60,if=RGB666 " \
-		"video=mxcfb1:off fbmem=8M\0"
+	"vidargs=video=mxcfb0:dev=lcd,320x240M@60,if=RGB666 " \
+		"video=mxcfb1:off fbmem=32M\0"
 
 /* Miscellaneous configurable options */
 #define CONFIG_SYS_LONGHELP
