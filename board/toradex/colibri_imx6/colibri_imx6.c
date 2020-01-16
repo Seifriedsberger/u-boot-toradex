@@ -481,7 +481,7 @@ static iomux_v3_cfg_t const pwr_intb_pads[] = {
 
 static iomux_v3_cfg_t const backlight_pads[] = {
 	/* Backlight On */
-	MX6_PAD_EIM_D26__GPIO3_IO26 | MUX_PAD_CTRL(NO_PAD_CTRL),
+	MX6_PAD_EIM_D26__GPIO3_IO26 | MUX_PAD_CTRL(NO_PULLUP),
 #define RGB_BACKLIGHT_GP IMX_GPIO_NR(3, 26)
 	/* Backlight PWM, used as GPIO in U-Boot */
 	MX6_PAD_EIM_A22__GPIO2_IO16  | MUX_PAD_CTRL(NO_PULLUP),
@@ -665,7 +665,7 @@ static void setup_display(void)
 	imx_iomux_v3_setup_multiple_pads(backlight_pads,
 					 ARRAY_SIZE(backlight_pads));
 	/* use 0 for EDT 7", use 1 for LG fullHD panel */
-	gpio_direction_output(RGB_BACKLIGHTPWM_GP, 1);
+	gpio_direction_output(RGB_BACKLIGHTPWM_GP, 0);
 	gpio_direction_output(RGB_BACKLIGHT_GP, 0);
 }
 

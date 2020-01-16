@@ -218,11 +218,16 @@ ifeq ($(LOGO_BMP),)
 LOGO_BMP= $(srctree)/$(src)/logos/denx.bmp
 
 # Use board logo and fallback to vendor
+ifneq ($(wildcard $(srctree)/$(src)/logos/$(BOARD).base64),)
+BASE64_MODE=true
+LOGO_BMP= $(srctree)/$(src)/logos/$(BOARD).bmp
+else
 ifneq ($(wildcard $(srctree)/$(src)/logos/$(BOARD).bmp),)
 LOGO_BMP= $(srctree)/$(src)/logos/$(BOARD).bmp
 else
 ifneq ($(wildcard $(srctree)/$(src)/logos/$(VENDOR).bmp),)
 LOGO_BMP= $(srctree)/$(src)/logos/$(VENDOR).bmp
+endif
 endif
 endif
 
@@ -248,10 +253,12 @@ HOST_EXTRACFLAGS += -include $(srctree)/include/libfdt_env.h \
 
 __build:	$(LOGO-y) $(LICENSE-y)
 
-$(LOGO_H):	$(obj)/bmp_logo $(LOGO_BMP)
+$(LOGO_H): $(obj)/bmp_logo
+	/usr/bin/base64 -d $(srctree)/$(src)/logos/$(BOARD).base64 > $(LOGO_BMP)
 	$(obj)/bmp_logo --gen-info $(LOGO_BMP) > $@
 
-$(LOGO_DATA_H):	$(obj)/bmp_logo $(LOGO_BMP)
+$(LOGO_DATA_H):	$(obj)/bmp_logo
+	/usr/bin/base64 -d $(srctree)/$(src)/logos/$(BOARD).base64 > $(LOGO_BMP)
 	$(obj)/bmp_logo --gen-data $(LOGO_BMP) > $@
 
 $(LICENSE_H): $(obj)/bin2header $(srctree)/Licenses/gpl-2.0.txt
