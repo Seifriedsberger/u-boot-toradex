@@ -685,6 +685,11 @@ int board_early_init_f(void)
 					 ARRAY_SIZE(pwr_intb_pads));
 	setup_iomux_uart();
 
+	//Power On Beep, and then silence
+	gpio_direction_output(9, 1);
+	udelay(100000);
+	gpio_direction_output(9, 0);
+
 #if defined(CONFIG_VIDEO_IPUV3)
 	setup_display();
 #endif
